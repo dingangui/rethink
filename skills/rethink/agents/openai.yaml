@@ -1,3 +1,3 @@
 interface:
   display_name: "rethink"
-  short_description: "先看清需求背后的目标，主动补全做法，在关键取舍上给出建议"
+  short_description: "Check the goal and spot gaps before acting"

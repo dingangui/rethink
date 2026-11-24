@@ -1,1 +1,2 @@
-SKILL.md text eol=lf
+/skills/**/*.md text eol=lf
+/skills/**/*.yaml text eol=lf
