@@ -1,0 +1,7 @@
+{
+  "name": "rethink-skills",
+  "owner": { "name": "dingangui" },
+  "plugins": [
+    { "name": "rethink", "source": "." }
+  ]
+}

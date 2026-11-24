@@ -1,0 +1,8 @@
+{
+  "name": "rethink-skills",
+  "owner": { "name": "dingangui" },
+  "metadata": { "description": "从这里安装 rethink，让 Claude 在动手前帮你审视方案。" },
+  "plugins": [
+    { "name": "rethink", "source": "./" }
+  ]
+}
