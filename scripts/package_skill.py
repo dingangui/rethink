@@ -11,7 +11,7 @@ def build_archive() -> Path:
     files = {
         "SKILL.md": skill / "SKILL.md",
         "agents/openai.yaml": skill / "agents" / "openai.yaml",
-        "references/zh-CN.md": skill / "references" / "zh-CN.md",
+        "references/en.md": skill / "references" / "en.md",
         "LICENSE": root / "LICENSE",
     }
     destination = root / "dist" / "rethink.zip"

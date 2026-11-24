@@ -1,7 +1,7 @@
 {
   "name": "rethink-skills",
   "owner": { "name": "dingangui" },
-  "metadata": { "description": "Install the rethink skill for Claude Code." },
+  "metadata": { "description": "Install the rethink skill so your AI thinks proactively with you instead of mechanically following orders." },
   "plugins": [
     { "name": "rethink", "source": "./" }
   ]

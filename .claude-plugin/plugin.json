@@ -1,7 +1,7 @@
 {
   "name": "rethink",
-  "version": "0.2.0",
-  "description": "Check the goal, spot gaps in the plan, and decide what to do before acting.",
+  "version": "0.2.1",
+  "description": "See the real goal behind your request, proactively fill in the gaps, and advise on key trade-offs instead of mechanically following orders.",
   "author": { "name": "dingangui" },
   "icon": "./assets/rethink.png",
   "license": "MIT"

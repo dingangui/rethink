@@ -1,35 +1,32 @@
 ---
 name: rethink
-description: Review a proposed approach before acting. Use when the user appends rethink or $rethink to a request, invokes the skill on its own or through their client, or asks for a second look at goals, gaps, and trade-offs.
-license: MIT
+description: 当用户手动调用 `$rethink`，或明确希望你先审视需求、查漏补缺、出谋划策而非机械照做时使用。不用于用户只要求快速按字面执行的简单指令。
 ---
 
 # rethink
 
-[简体中文](references/zh-CN.md)
+用户调用这个 skill，是因为他写下的需求可能还不够周全，希望你像一个对结果负责的资深搭档那样先帮他想透，再决定怎么推进，而不是机械地逐字执行。
 
-The user has a goal and may already have a way to reach it in mind. Help them work out whether that approach will deliver what they need. A straightforward request for literal execution can be handled directly.
+收到后**不要急着按字面动手**，按以下顺序思考和行动：
 
-Reply in the language of the user's request. For a standalone invocation, use the language of the request it refers to. Honor any explicit language choice for the reply or deliverable. Use English when there is no language cue.
+1. **先核实上下文，再复盘真实目标。**
+   先查看对话、代码、文件或工具中能查证的事实。单独收到 `$rethink` 时，回看最近一段需求、后续修正和已完成的工作（找不到所指需求时再请用户补充）。用简洁的一两句话总结：你理解用户本质上想解决什么问题、交付物拿到后怎么用、做到什么程度才算好。
 
-1. **Check the context and identify the goal.**
-   Look for facts you can verify in the conversation, code, files, or available tools. When the user appends `rethink` or `$rethink`, review that request. When they send only the skill name or a client invocation, look back at the latest request, corrections, and work already completed. Ask for context only if you cannot tell what they mean. Sum up the outcome, how the user will use it, and what success looks like in one or two sentences.
+2. **跳出字面要求，替用户查漏补缺、出谋划策。**
+   把用户的“最终目的 / 硬约束”和“他初步想到的做法”分开看，重点追问三件事：
+   - **做法对不对路**：按字面照做，真能解决他的核心问题吗？有没有更直接、更稳妥或成本更低的办法？
+   - **有没有关键遗漏**：哪些隐含前提、边界情况、依赖关系或验收口径没写全，漏掉会让结果不好用或返工？
+   - **往后看一步**：如果按现在这样落地，接下来使用或扩展时最容易在哪里卡住？
 
-2. **Look for gaps that could change the result.**
-   Distinguish the user's goal and firm constraints from their suggested implementation. Consider three questions.
-   - Would the proposed approach solve the underlying problem? Is there a simpler, more reliable, or less costly way to get there?
-   - Which assumption, edge case, dependency, or acceptance criterion could lead to rework if overlooked?
-   - Where might the user run into trouble when they put the result to use or extend it?
+   只提会实质影响结果的要点，不堆砌教科书式的泛泛检查项，也不借机乱扩无关范围。如果原方案已经很周全，直接说明认可并采用，不必为了显得在思考而强行挑刺。
 
-   Raise only points that materially affect the outcome. If the original plan holds up, say so briefly and use it.
+3. **判断是“直接完善并执行”，还是“带着方案先商量”。**
+   - **能自己把关就先做好**：在用户意图明确、补充项属于明显最佳实践且改动代价低/可逆时，说明你替他补上了哪些关键考虑和假设，然后按更完善的方案直接推进并交付。
+   - **涉及关键取舍就先停下来商量**：如果需求存在重大歧义、前提站不住、不同选法会明显改变结果或返工成本高，或者更好的办法需要突破用户的明确要求，**暂停执行依赖该决定的部分**。带着你的判断来讨论：给出一版你推荐的完善后方案、为什么这样更好、以及另一种选择的代价与差别，只问需要用户拍板的那几个关键问题。
 
-3. **Act on clear improvements and discuss consequential choices.**
-   When the intent is clear and an improvement is low-cost, reversible, and within scope, explain any important assumption and carry it through. If the goal is ambiguous, a premise fails, a decision would be expensive to undo, or a better approach would change an explicit requirement, pause the work that depends on that choice. Recommend an option, explain what makes it preferable and what an alternative would cost, and ask only what the user needs to decide.
+4. **按用户想要的形态收尾。**
+   用户要讨论，给清晰的判断和建议；用户要整理需求，给一版补全后可直接使用的需求或执行计划；用户要办事，直接落完并用实际结果对照他的真实目标核对，简短点出你替他补齐的关键考虑。
 
-4. **Deliver what the user asked for.**
-   For a discussion, give a clear judgment and reasoning. For a specification or plan, produce something the user can put to work. For an action, carry it out, check the result against the original goal, and briefly mention any important gap you addressed.
-
-## Examples
-
-- **Make the improvement and deliver.** The user asks for a one-page experiment report because tomorrow's meeting will decide whether to keep running it. Keep the one-page limit. Lead with a recommendation, include the evidence behind it, and identify any missing evidence that could change the decision.
-- **Bring the choice back to the user.** The user suggests an in-memory cache to speed up a pricing endpoint. The service runs across multiple instances, and a committed price change must be visible immediately. Local caches can serve old prices. A shared cache with a short TTL still has a window in which a price can be stale. Check the slow query and ask which data, if any, can tolerate a delay before deciding what to cache.
+示例：
+- **直接完善并交付**：用户说「把实验报告压成一页，明天要决定要不要继续跑」。保留一页的硬限制，不只做机械删减，而是围绕“明天能拍板”重构内容：先给继续/暂停建议、核心支撑数据，再补上哪条缺失证据可能翻转决定。
+- **带着方案先商量**：用户说「帮我给这个接口加个内存缓存提速」。先查代码发现服务是多实例部署且数据要求强一致；不急着写代码，先指出单机内存缓存会带来节点间脏读，推荐改用现有 Redis 加短 TTL 的方案，说明两者差异，等用户确认后再改。
