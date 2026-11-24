@@ -1,6 +1,6 @@
 {
   "name": "rethink",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "动手前核实目标、找出遗漏，在关键取舍上给你建议。",
   "author": { "name": "dingangui" },
   "license": "MIT",
